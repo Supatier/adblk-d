@@ -1,0 +1,10 @@
+{
+        "beforeFile": "/tmp/host.before",
+        "stagingFile": "/tmp/block.build.stg",
+        "target": "127.0.0.1",
+        "hosts": "/etc/hosts",
+        "whitelist": "/etc/white.list",
+        "noroute": ["https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts", "https://gist.githubusercontent.com/Maysora/25dca985de1ed6d8eb4c95081d54667b/raw/369929e39531cdac8661df1f8bf430a76ef4e73d/hosts", "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/win10/spy.txt"],
+        "localhost": ["http://hosts-file.net/ad_servers.txt", "http://www.hostsfile.org/Downloads/hosts.txt"],
+        "empty": ["https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist", "https://raw.githubusercontent.com/Dawsey21/Lists/master/main-blacklist.txt", "https://feodotracker.abuse.ch/blocklist/?download=ipblocklist", "https://www.dshield.org/feeds/suspiciousdomains_Low.txt", "https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt"]
+}
