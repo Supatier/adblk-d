@@ -22,4 +22,7 @@ docs/
 
 # Code coverage
 *.lst
- adblk
+adblk
+
+build
+bin

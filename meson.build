@@ -1,4 +1,4 @@
-project('myapp', 'd')
-src = (['source/app.d'])
-e = executable('myapp', src, include_directories : [src_dir],  install : true)#, dependencies: [mylib_dep])
+project('adblk-d', 'd')
+src = (['src/adblk.d'])
+e = executable('adblk-d', src,  install : true)#, dependencies: [mylib_dep])
 test('apptest', e)

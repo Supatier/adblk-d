@@ -140,7 +140,7 @@ It may not work");
                                         stagingFile, `" >> `, hosts);
                         executeShell(command);
                 } else {
-                        copy(stagingFile, hosts);
+                        append(hosts, readText(stagingFile));
                 }
         } else {
                 writeln("===== Config file not found =====");
