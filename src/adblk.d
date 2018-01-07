@@ -9,6 +9,7 @@ import std.net.curl : byLineAsync;
 import std.process : executeShell;
 import std.regex : matchAll, regex, replaceAll;
 import std.stdio : write, writeln;
+import std.algorithm;
 
 /// Prints help
 void usage() {
@@ -46,14 +47,15 @@ void main(string[] args) {
         /// Change with or --c --cfg only.
         string configLocation = "/etc/config.json";
 
-        string beforeFileNew;
-        string stagingFileNew;
-        string targetNew;
-        string hostsNew;
-        string whitelistNew;
-        getopt(args, "c|cfg", &configLocation, "h|help", &help, "b|before", &beforeFileNew,
-                        "s|staging", &stagingFileNew, "t|target", &targetNew,
-                        "hosts", &hostsNew, "w|whitelist", &whitelistNew);
+        string _beforeFile;
+        string _stagingFile;
+        string _target;
+        string _hosts;
+        string _whitelist;
+
+        getopt(args, "c|cfg", &configLocation, "h|help", &help, "b|before", &_beforeFile,
+                        "s|staging", &_stagingFile, "t|target", &_target,
+                        "hosts", &_hosts, "w|whitelist", &_whitelist);
 
         if (help) {
                 usage();
@@ -62,22 +64,33 @@ void main(string[] args) {
 
         if (exists(configLocation)) {
                 JSONValue[string] config = parseJSON(readText(configLocation)).object;
-                beforeFile = cleanJSONstring(config["beforeFile"]);
-                stagingFile = cleanJSONstring(config["stagingFile"]);
-                target = cleanJSONstring(config["target"]);
-                hosts = cleanJSONstring(config["hosts"]);
-                whitelist = cleanJSONstring(config["whitelist"]);
 
-                if (beforeFileNew.length != 0)
-                        beforeFile = beforeFileNew;
-                if (stagingFileNew.length != 0)
-                        stagingFile = stagingFileNew;
-                if (targetNew.length != 0)
-                        target = targetNew;
-                if (hostsNew.length != 0)
-                        hosts = hostsNew;
-                if (whitelistNew.length != 0)
-                        whitelist = whitelistNew;
+                if ("beforeFile" in config) {
+                        beforeFile = cleanJSONstring(config["beforeFile"]);
+                }
+                if ("stagingFile" in config) {
+                        stagingFile = cleanJSONstring(config["stagingFile"]);
+                }
+                if ("target" in config) {
+                        target = cleanJSONstring(config["target"]);
+                }
+                if ("hosts" in config) {
+                        hosts = cleanJSONstring(config["hosts"]);
+                }
+                if ("whitelist" in config) {
+                        whitelist = cleanJSONstring(config["whitelist"]);
+                }
+
+                if (_beforeFile != null)
+                        beforeFile = _beforeFile;
+                if (_stagingFile != null)
+                        stagingFile = _stagingFile;
+                if (_target != null)
+                        target = _target;
+                if (_hosts != null)
+                        hosts = _hosts;
+                if (_whitelist != null)
+                        whitelist = _whitelist;
 
                 const int uid = getuid();
                 if (uid != 0) {
