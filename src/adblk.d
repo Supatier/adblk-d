@@ -9,7 +9,6 @@ import std.net.curl : byLineAsync;
 import std.process : executeShell;
 import std.regex : matchAll, regex, replaceAll;
 import std.stdio : write, writeln;
-import std.algorithm;
 
 /// Prints help
 void usage() {
@@ -47,11 +46,7 @@ void main(string[] args) {
         /// Change with or --c --cfg only.
         string configLocation = "/etc/config.json";
 
-        string _beforeFile;
-        string _stagingFile;
-        string _target;
-        string _hosts;
-        string _whitelist;
+        string _beforeFile, _stagingFile, _target, _hosts, _whitelist;
 
         getopt(args, "c|cfg", &configLocation, "h|help", &help, "b|before", &_beforeFile,
                         "s|staging", &_stagingFile, "t|target", &_target,
