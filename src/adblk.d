@@ -1,4 +1,3 @@
-import core.stdc.stdlib : exit, EXIT_FAILURE, EXIT_SUCCESS;
 import core.sys.posix.unistd : getuid;
 import std.array : array;
 import std.conv : text, to;
@@ -33,7 +32,7 @@ string cleanJSONstring(JSONValue input) {
         return output;
 }
 
-void main(string[] args) {
+int main(string[] args) {
 
         bool help;
         /// Default variables. Can be change in config.json
@@ -54,7 +53,7 @@ void main(string[] args) {
 
         if (help) {
                 usage();
-                exit(EXIT_SUCCESS);
+                return 0;
         }
 
         if (exists(configLocation)) {
@@ -147,11 +146,13 @@ It may not work");
                                         ` | awk '/^[^#]/ {sub(/\r$/,"");print $1}' | grep -vf - "`,
                                         stagingFile, `" >> `, hosts);
                         executeShell(command);
+                        return 0;
                 } else {
                         append(hosts, readText(stagingFile));
+                        return 0;
                 }
         } else {
                 writeln("===== Config file not found =====");
-                exit(EXIT_FAILURE);
+                return 1;
         }
 }
